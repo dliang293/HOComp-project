@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos." name="description"/>
+<meta content="Nerfies, D-NeRF, NeRF" name="keywords"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>HOComp: Interaction-Aware Human-Object Composition</title>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+<link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet"/>
+<link href="./static/css/bulma.min.css" rel="stylesheet"/>
+<link href="./static/css/bulma-carousel.min.css" rel="stylesheet"/>
+<link href="./static/css/bulma-slider.min.css" rel="stylesheet"/>
+<link href="./static/css/fontawesome.all.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" rel="stylesheet"/>
+<link href="./static/css/index.css" rel="stylesheet"/>
+<link href="./static/images/favicon.svg" rel="icon"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script defer="" src="./static/js/fontawesome.all.min.js"></script>
+<script src="./static/js/bulma-carousel.min.js"></script>
+<script src="./static/js/bulma-slider.min.js"></script>
+<script src="./static/js/index.js"></script>
+</head>
+<body>
+<section class="hero">
+<div class="hero-body">
+<div class="container is-max-desktop">
+<div class="columns is-centered">
+<div class="column has-text-centered">
+<h1 class="title is-1 publication-title"><span class="rainbow-text">HOComp: Interaction-Aware Human-Object Composition</span></h1>
+<div class="is-size-5 publication-authors">
+<span class="author-block"><a href="#">Dong Liang</a><sup>1,2</sup>,</span>
+<span class="author-block"><a href="#">Jinyuan Jia</a><sup>1,3,†</sup>,</span>
+<span class="author-block"><a href="#">Yuhao Liu</a><sup>2,†</sup>,</span>
+<span class="author-block"><a href="#">Rynson W.H. Lau</a><sup>2,†</sup></span>
+</div>
+<div class="is-size-5 publication-authors">
+<span class="author-block"><sup>1</sup>Tongji University,</span>
+<span class="author-block"><sup>2</sup>City University of Hong Kong,</span>
+<span class="author-block"><sup>3</sup>HKUST(GZ)</span>
+</div>
+<div class="publication-links" style="margin-top: 1em;">
+<a class="external-link button is-normal is-rounded is-dark" href="#">
+<span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span>
+</a>
+<a class="external-link button is-normal is-rounded is-dark" href="#">
+<span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+
+        <div style="display: flex; gap: 5px; align-items: center;">
+          <img src="./static/imgs/result/15_i.png" alt="Static 1" style="height: 285px;">
+          <img src="./static/imgs/result/15.avifs" alt="GIF" style="height: 285px;">
+        </div>
+
+        <div style="display: flex; gap: 5px; align-items: center;">
+          <img src="./static/imgs/result/11_i.png" alt="Static 1" style="height: 285px;">
+          <img src="./static/imgs/result/11.avifs" alt="GIF" style="height: 285px;">
+        </div>
+
+                <div style="display: flex; gap: 5px; align-items: center;">
+          <img src="./static/imgs/result/18_i.png" alt="Static 1" style="height: 275px;">
+          <img src="./static/imgs/result/18.avifs" alt="GIF" style="height: 280px;">
+        </div>
+
+        <div style="display: flex; gap: 5px; align-items: center;">
+          <img src="./static/imgs/result/1_i.png" alt="Static 1" style="height: 285px;">
+          <img src="./static/imgs/result/1.avifs" alt="GIF" style="height: 285px;">
+        </div>
+
+        <div style="display: flex; gap: 5px; align-items: center;">
+          <img src="./static/imgs/result/6_i.png" alt="Static 1" style="height: 285px;">
+          <img src="./static/imgs/result/6.avifs" alt="GIF" style="height: 285px;">
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop" style="max-width: 1300px;">
+    <div class="content" style="text-align: justify;">
+      <p style="font-size: 22px;">We propose a new approach for interaction-aware human-object composition, named <b>HOComp</b>, which focuses on seamlessly integrating a foreground object onto a human-centric background image while ensuring harmonious interactions and preserving the visual consistency of both the foreground object and the background person.</p>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <!-- 新的3x3网格展示部分 -->
+      <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 10px; margin-top: 10px;">
+        
+        <!-- Case 1 -->
+        <div class="grid-item" style="display: flex; gap: 10px; align-items: center;">
+          <img src="./static/imgs/result/5_i.png" alt="Static 1" style="height: 285px; width: auto;">
+          <img src="./static/imgs/result/5.avifs" alt="GIF" style="height: 285px; width: auto;">
+        </div>
+        
+        <!-- Case 2 -->
+        <div class="grid-item" style="display: flex; gap: 10px; align-items: center;">
+          <img src="./static/imgs/result/2_i.png" alt="Static 2" style="height: 285px; width: auto;">
+          <img src="./static/imgs/result/2.avifs" alt="GIF" style="height: 285px; width: auto;">
+        </div>
+        
+        <!-- Case 4 -->
+        <div class="grid-item" style="display: flex; gap: 10px; align-items: center;">
+          <img src="./static/imgs/result/16_i.png" alt="Static 4" style="height: 295px; width: auto;">
+          <img src="./static/imgs/result/16.avifs" alt="GIF" style="height: 295px; width: auto;">
+        </div>
+
+        <!-- Case 3 -->
+        <div class="grid-item" style="display: flex; gap: 10px; align-items: center;">
+          <img src="./static/imgs/result/7_i.png" alt="Static 3" style="height: 285px; width: auto;">
+          <img src="./static/imgs/result/7.avifs" alt="GIF" style="height: 285px; width: auto;">
+        </div>
+
+        <!-- Case 5 -->
+        <div class="grid-item" style="display: flex; gap: 10px; align-items: center;">
+          <img src="./static/imgs/result/8_i.png" alt="Static 5" style="height: 285px; width: auto;">
+          <img src="./static/imgs/result/8.avifs" alt="GIF" style="height: 285px; width: auto;">
+        </div>
+
+        <!-- Case 6 -->
+        <div class="grid-item" style="display: flex; gap: 10px; align-items: center;">
+          <img src="./static/imgs/result/9_i.png" alt="Static 6" style="height: 285px; width: auto;">
+          <img src="./static/imgs/result/9.avifs" alt="GIF" style="height: 285px; width: auto;">
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Framework</h2>
+    <div class="content has-text-justified">
+      <p>
+        We introduce <b>HOComp</b>, a novel approach for compositing a foreground object onto a human-centric background image, 
+        while ensuring harmonious interactions between the foreground object and the background person and their consistent appearances.
+      </p>
+      <ul style="margin-top: 1em;">
+        <li>
+          HOComp incorporates two innovative designs: <b>MLLMs-driven region-based pose guidance (MRPG)</b> for constraining human-object interaction 
+          via a <i>coarse-to-fine</i> strategy, and <b>detail-consistent appearance preservation (DCAP)</b> for maintaining consistent foreground/background appearances.
+        </li>
+        <li>
+          We introduce the <b>Interaction-aware Human-Object Composition (IHOC) dataset</b>, and conduct extensive experiments on this dataset 
+          to demonstrate the superiority of our method.
+        </li>
+      </ul>
+    </div>
+    <img alt="Framework Overview" src="./static/imgs/pipeline_00.png" style="width:100%; margin-bottom: 10px;" />
+  </div>
+  <div class="container is-max-desktop">
+    <p><b>Inference Phase (left):</b> MRPG uses MLLMs to generate a text prompt <i>C</i>, object box <i>B<sub>o</sub></i> and interaction region <i>B<sub>r</sub></i>. Among these, <i>B<sub>r</sub></i> and <i>C</i> are encoded and, together with the object ID, detail features, and background features, are used to condition the DiT for final composition generation.
+    <b>Training Phase (right):</b> MRPG constrains the interaction by applying a <i>pose-guided loss</i> <i>L<sub>pose</sub></i> with keypoint supervision. DCAP enforces appearance consistency via: (1) <i>shape-aware attention modulation</i> to adjust the attention maps to follow the object’s shape prior <i>M<sub>shape</sub></i>; (2) a multi-view appearance loss <i>L<sub>appearance</sub></i> to semantically align synthesized and input foregrounds (multi-views); and (3) a background loss <i>L<sub>background</sub></i> to preserve original background details.</p>
+  </div>
+</section>
+
+
+<section class="section">
+<div class="container is-max-desktop">
+<h2 class="title is-3">Diversity</h2>
+    <p style="text-align: justify; ">
+      Our method facilitates the generation of diverse and realistic results. By automatically identifying the target region and generating a suitable text prompt, it guides the interaction between the foreground object and background. This approach allows for the creation of visually harmonious interactions while maintaining a level of diversity, ensuring that different contexts and scenarios can be effectively composed.
+    </p>
+</div>
+</div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <!-- 新的3x3网格展示部分 -->
+      <div class="grid-container" style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 10px; margin-top: 10px;">
+        
+        <!-- Case 1 -->
+        <div class="grid-item" style="display: flex; gap: 10px; align-items: center;">
+          <img src="./static/imgs/result/21_i.png" alt="Static 1" style="height: 250px; width: auto;">
+          <img src="./static/imgs/result/21_c1.png" alt="GIF" style="height: 250px; width: auto;">
+          <img src="./static/imgs/result/21_c2.png" alt="GIF" style="height: 250px; width: auto;">
+        </div>
+        
+        <!-- Case 2 -->
+        <div class="grid-item" style="display: flex; gap: 10px; align-items: center;">
+          <img src="./static/imgs/result/14_i.png" alt="Static 2" style="height: 250px; width: auto;">
+          <img src="./static/imgs/result/14_c.png" alt="GIF" style="height: 250px; width: auto;">
+          <img src="./static/imgs/result/14_c2.png" alt="GIF" style="height: 250px; width: auto;">
+        </div>
+        
+        <!-- Case 4 -->
+        <div class="grid-item" style="display: flex; gap: 10px; align-items: center;">
+          <img src="./static/imgs/result/13_i.png" alt="Static 4" style="height: 250px; width: auto;">
+          <img src="./static/imgs/result/13_c.png" alt="GIF" style="height: 250px; width: auto;">
+          <img src="./static/imgs/result/13_c2.png" alt="GIF" style="height: 250px; width: auto;">
+        </div>
+
+        <!-- Case 3 -->
+        <div class="grid-item" style="display: flex; gap: 10px; align-items: center;">
+          <img src="./static/imgs/result/23_i.png" alt="Static 3" style="height: 250px; width: auto;">
+          <img src="./static/imgs/result/23_c1.png" alt="GIF" style="height: 250px; width: auto;">
+          <img src="./static/imgs/result/23_c2.png" alt="GIF" style="height: 250px; width: auto;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+<div class="container is-max-desktop">
+<h2 class="title is-3">More Results</h2>
+</div>
+</div>
+</section>
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div style="display: flex; gap: 5px; align-items: center;">
+
+          <img src="./static/imgs/result/4_i.png" alt="Static 1" style="height: 285px;">
+          <img src="./static/imgs/result/4.avifs" alt="GIF" style="height: 285px;">
+        </div>
+
+        <div style="display: flex; gap: 5px; align-items: center;">
+
+          <img src="./static/imgs/result/20_i.png" alt="Static 1" style="height: 285px;">
+          <img src="./static/imgs/result/20.avifs" alt="GIF" style="height: 285px;">
+        </div>
+
+                <div style="display: flex; gap: 5px; align-items: center;">
+
+          <img src="./static/imgs/result/10_i.png" alt="Static 1" style="height: 275px;">
+          <img src="./static/imgs/result/10.avifs" alt="GIF" style="height: 275px;">
+        </div>
+        <div style="display: flex; gap: 5px; align-items: center;">
+
+          <img src="./static/imgs/result/19_i.png" alt="Static 1" style="height: 285px;">
+          <img src="./static/imgs/result/19.avifs" alt="GIF" style="height: 285px;">
+        </div>
+        <div style="display: flex; gap: 5px; align-items: center;">
+
+          <img src="./static/imgs/result/12_i.png" alt="Static 1" style="height: 265px;">
+          <img src="./static/imgs/result/12.avifs" alt="GIF" style="height: 265px;">
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Applications</h2>
+    <p style="margin-top: 20px;">
+      Our method not only enables the generation of natural and consistent composite images but also seamlessly integrates with cutting-edge <i>image-to-video</i> models, such as the latest WAN I2V framework. By combining these technologies, we are able to produce highly realistic human-object interaction videos, where dynamic interactions between people and objects are synthesized with remarkable fluidity and coherence. This approach has vast potential in various industries, including advertising and product promotion, where the creation of engaging, lifelike video content is essential for capturing audience attention and enhancing brand storytelling.
+    </p>
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        
+                        <!-- Item 1: Steve Video with One Image -->
+        <div class="item item-steve" style="display: flex; align-items: center;">
+          <!-- Left Image -->
+          <div style="margin-right: 5px; flex-shrink: 0;">
+            <img src="./static/imgs/result/28_i.png" alt="Image 1" style="height: 390px; width: auto;">
+          </div>
+          <!-- Video -->
+          <div style="flex-grow: 1;">
+            <video poster="" id="steve" autoplay controls muted loop playsinline style="width: 100%; height: auto;">
+              <source src="./static/videos/c_2.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+
+        <!-- Item 1: Steve Video with One Image -->
+        <div class="item item-steve" style="display: flex; align-items: center;">
+          <!-- Left Image -->
+          <div style="margin-right: 5px; flex-shrink: 0;">
+            <img src="./static/imgs/result/29_i.png" alt="Image 1" style="height: 390px; width: auto;">
+          </div>
+          <!-- Video -->
+          <div style="flex-grow: 1;">
+            <video poster="" id="steve" autoplay controls muted loop playsinline style="width: 100%; height: auto;">
+              <source src="./static/videos/4_c.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+                <!-- Item 1: Steve Video with One Image -->
+        <div class="item item-steve" style="display: flex; align-items: center;">
+          <!-- Left Image -->
+          <div style="margin-right: 5px; flex-shrink: 0;">
+            <img src="./static/imgs/result/26_i.png" alt="Image 1" style="height: 390px; width: auto;">
+          </div>
+          <!-- Video -->
+          <div style="flex-grow: 1;">
+            <video poster="" id="steve" autoplay controls muted loop playsinline style="width: 100%; height: auto;">
+              <source src="./static/videos/7_c.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+                        <!-- Item 1: Steve Video with One Image -->
+        <div class="item item-steve" style="display: flex; align-items: center;">
+          <!-- Left Image -->
+          <div style="margin-right: 5px; flex-shrink: 0;">
+            <img src="./static/imgs/result/25_i.png" alt="Image 1" style="height: 390px; width: auto;">
+          </div>
+          <!-- Video -->
+          <div style="flex-grow: 1;">
+            <video poster="" id="steve" autoplay controls muted loop playsinline style="width: 100%; height: auto;">
+              <source src="./static/videos/5_c.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        
+        <!-- Item 1: Steve Video with One Image -->
+        <div class="item item-steve" style="display: flex; align-items: center;">
+          <!-- Left Image -->
+          <div style="margin-right: 5px; flex-shrink: 0;">
+            <img src="./static/imgs/result/24_i.png" alt="Image 1" style="height: 420px; width: auto;">
+          </div>
+          <!-- Video -->
+          <div style="flex-grow: 1;">
+            <video poster="" id="steve" autoplay controls muted loop playsinline style="width: 100%; height: auto;">
+              <source src="./static/videos/3_c.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="section">
+<div class="container is-max-desktop">
+<h2 class="title is-3">BibTeX</h2>
+<pre><code>
+@inproceedings{liang2025hocomp,
+  title={HOComp: Interaction-Aware Human-Object Composition},
+  author={Liang, Dong and Jia, Jinyuan and Liu, Yuhao and Lau, Rynson WH},
+  booktitle={Conference on Neural Information Processing Systems},
+  year={2025}
+}
+    </code></pre>
+</div>
+</section>
+</body>
+</html>
+
+
+<div class="columns is-centered">
+    <div class="column is-8">
+      <div class="content">
+        <p> Website borrowed from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a> under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0
+            International</a>
+        </p>
+      </div>
+    </div>
+</div>
